@@ -38,7 +38,7 @@ gulp.task('static-files',function(){
 
 gulp.task('nodemon', function () {
   nodemon({ script: 'index.js', ext: 'js', ignore: ['public/**','app/**','node_modules/**'] })
-    .on('restart',['jade','less'], function () {
+    .on('restart', function () {
       console.log('>> node restart');
     });
 });

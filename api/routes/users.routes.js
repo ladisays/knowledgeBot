@@ -1,15 +1,9 @@
+var Firebase = require('firebase');
 var users = require('../controllers/users.controllers');
 
-
 module.exports = function(app, config) {
-
-  app.route('/users').get(users.all);
-  //     .post(users.create);
-
-  // app.route('/verticals/:id')
-  //     .get(users.getOne)
-  //     .put(users.update)
-  //     .delete(users.delete);
-
-  // app.param('id', users.verticalById);
+  app.route('/users/register').post(function(req, res) {
+    var root = new Firebase(config.firebase.rootRefUrl);
+    console.log(root);
+  });
 };

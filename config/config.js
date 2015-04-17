@@ -1,28 +1,28 @@
 var development = {
   firebase: {
     rootRefUrl: 'https://knowledgebot.firebaseio.com/',
-    secretKey: 'LN0RtEocTVHiLIhyc7Jl3GolJwJm4bwe0tI5Tswe'
+    secretKey: 'eMk9rNB5UWkc2E1bw5QPItx4e5JznCZIXzl1deRF'
   }
 };
 
 var test = {
   firebase: {
     rootRefUrl: 'https://knowledgebot.firebaseio.com/',
-    secretKey: 'LN0RtEocTVHiLIhyc7Jl3GolJwJm4bwe0tI5Tswe'
+    secretKey: 'eMk9rNB5UWkc2E1bw5QPItx4e5JznCZIXzl1deRF'
   }
 };
 
 var production = {
   firebase: {
     rootRefUrl: 'https://knowledgebot.firebaseio.com/',
-    secretKey: 'LN0RtEocTVHiLIhyc7Jl3GolJwJm4bwe0tI5Tswe'
+    secretKey: 'eMk9rNB5UWkc2E1bw5QPItx4e5JznCZIXzl1deRF'
   }
 };
 
 var staging = {
   firebase: {
     rootRefUrl: 'https://knowledgebot.firebaseio.com/',
-    secretKey: 'LN0RtEocTVHiLIhyc7Jl3GolJwJm4bwe0tI5Tswe'
+    secretKey: 'eMk9rNB5UWkc2E1bw5QPItx4e5JznCZIXzl1deRF'
   }
 };
 
