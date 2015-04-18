@@ -1,9 +1,10 @@
-var users = require('./users.routes');
+var answers = require('./answers.routes.js');
 
 module.exports = function(app, config) {
-  users(app, config);
+  answers(app, config);
 
-  app.get('/*',function(req, res){
-    res.sendFile("index.html",{root:'./public'});
+  app.post('/answers',function(req, res){
+    console.log("mehn");
+     // res.sendFile("index.html",{root:'./public'});
   });
 };
