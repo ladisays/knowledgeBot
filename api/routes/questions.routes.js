@@ -8,7 +8,7 @@ module.exports = function(app, config) {
   app.route('/questions').post(function(req, res) {
     //parse data from bot
     var parseQue = function(callback) {
-      var data = JSON.parse(req.body);
+      var data = req.body;
       var question = {};
       question.body = data.body;
       question.tags = data.tags;
