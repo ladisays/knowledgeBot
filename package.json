@@ -115,6 +115,7 @@
     "pg": "4.x",
     "protractor": "^1.5.0",
     "proxyquire": "^1.0.1",
+    "request": "^2.55.0",
     "rethinkdb": "latest",
     "selenium-server-standalone-jar": "2.44.0",
     "stringify": "^2.2.0",
