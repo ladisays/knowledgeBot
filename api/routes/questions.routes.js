@@ -14,6 +14,7 @@ module.exports = function(app, config) {
       question.tags = data.tags;
       question.userId = data.id;
       callback(null, question);
+      console.log(question);
     };
 
     var checkDupQues = function(question, callback) {
@@ -24,6 +25,7 @@ module.exports = function(app, config) {
             if (question.length < 10) {
               return callback(new Error('Invalid Question'));
             }
+            console.log(question);
             var regexp = new RegExp(question.body.substr(0, 10), 'i');
             var match = _.find(ques, function(que) {
               return regexp.test(que.body);
