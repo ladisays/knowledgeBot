@@ -11,7 +11,7 @@ module.exports = function(app, config) {
       var data = req.body;
       var question = {};
       question.body = data.body;
-      question.tags = data.tags.split(' ');
+      question.tags = data.tags;
       question.userId = data.id;
       callback(null, question);
     };
