@@ -39,14 +39,14 @@ module.exports = function(app, config) {
 };
 
 
-function send (payload, cb) {
-  console.log('payload: ', payload);
+function send (expert, cb) {
+  console.log('expert: ', expert);
   var uri = ' https://yodabot.herokuapp.com/experts';
  
   request({
     uri: uri,
     method: 'POST',
-    json: payload
+    json: expert
   }, function (error, response, body) {
     console.log('response: ', response.statusCode);
     console.log('body: ', body);
