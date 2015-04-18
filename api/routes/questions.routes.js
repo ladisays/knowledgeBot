@@ -14,7 +14,7 @@ module.exports = function(app, config) {
       question.tags = data.tags;
       question.userId = data.id;
       callback(null, question);
-      console.log(req);
+      console.log(req.body);
       console.log(question);
     };
 
