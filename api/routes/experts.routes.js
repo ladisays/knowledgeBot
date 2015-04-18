@@ -7,8 +7,22 @@ module.exports = function(app, config) {
 
   app.route('/experts').get(function(req, res) {
   	root.child('users').on('value', function(snap) {
-  		console.log('data: ', snap.val());
-  		res.json({experts: snap.val()});
+  		var data   	= snap.val(),
+  				skills  = {},
+  				match 	= [];
+
+  		// Waiting to get tags from Seun Martins to help in filtering experts
+  		var tagsFromQuestion = ['Javascript', 'CSS', 'PHP', 'Java', 'Scala'];
+
+  		for (var i in data) {
+  			if (data.hasOwnProperty(i)) {
+  		 	  var tagsMatchSkill = _.intersection(data[i].skills, tagsFromQuestion);
+  		 	 	if (tagsMatchSkill.length > 0) {
+  		 	 		res.json({matches: data[i].slack});
+  		 	 	}
+  			}
+  		}
+
   	});
   });
 };
