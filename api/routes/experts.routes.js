@@ -27,7 +27,7 @@ module.exports = function(tags, res, next) {
               return next(new Error('Incoming WebHook: ' + status + ' ' + body));
             } else {
               console.log('status: ', status);
-              return ;
+              return status;
             }
           });
         }
