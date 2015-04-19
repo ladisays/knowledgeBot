@@ -1,6 +1,7 @@
 var Firebase = require('firebase');
 var async = require('async');
 var _ = require('lodash');
+var experts = require('./experts.routes');
 
 module.exports = function(app, config) {
   var root = new Firebase(config.firebase.rootRefUrl);
@@ -64,10 +65,9 @@ module.exports = function(app, config) {
           error: err
         });
       }
-      res.json({
-        status: 200,
-        data: newQue
-      });
+
+      experts(newQue.tags);
+
     });
   });
 
