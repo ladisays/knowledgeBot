@@ -10,10 +10,15 @@ module.exports = function(app, config) {
     //parse data from bot
     var parseQue = function(callback) {
       var data = req.body;
+      var tags = data.tags;
+      tags = tags.replace(/ /g, '').toLowerCase().split(',');
+      _.remove(tags, function(n) {
+        return n.length < 2;
+      });
       var question = {};
       question.body = data.body;
-      question.tags = data.tags;
       question.userId = data.id;
+      question.tags = tags;
       callback(null, question);
     };
 
