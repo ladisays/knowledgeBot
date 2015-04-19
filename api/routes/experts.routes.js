@@ -8,11 +8,14 @@ var Firebase = require('firebase'),
 
 var root = new Firebase(config.development.firebase.rootRefUrl);
 
-module.exports = function(tags, res, next) {
+module.exports = function(tag, res, next) {
   root.child('users').on('value', function(snap) {
-    var data = snap.val(),
-      skills = {},
-      expertMatch = {};
+    var data      = snap.val(),
+      skills      = {},
+      expertMatch = {},
+      tags        = [];
+
+    tags.push(tag);
 
     for (var i in data) {
       if (data.hasOwnProperty(i)) {
