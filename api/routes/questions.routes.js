@@ -74,7 +74,16 @@ module.exports = function(app, config) {
         });
       }
 
-      experts(newQue.tags);
+      experts(newQue.tags, function(err, data) {
+        console.log('data: ', data);
+        console.log('Err: ', err);
+        if (data === 200) {
+          return res.status(200).send('You have the experts now');
+        } else {
+          // return res.status(200).send('You have the experts now');
+          return res.status(404).send('No experts with the selected tags');
+        }
+      });
 
     });
   });

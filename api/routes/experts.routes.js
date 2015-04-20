@@ -8,7 +8,7 @@ var Firebase = require('firebase'),
 
 var root = new Firebase(config.development.firebase.rootRefUrl);
 
-module.exports = function(tags) {
+module.exports = function(tags, cb) {
   root.child('users').on('value', function(snap) {
     var data      = snap.val(),
       skills      = {},
@@ -22,16 +22,16 @@ module.exports = function(tags) {
           expertMatch['user'] = data[i];
           send(expertMatch, function(error, status, body) {
             if (error) {
-              return next(error);
+              cb(error);
             } else if (status !== 200) {
               // inform user that our Incoming WebHook failed
-              return next(new Error('Incoming WebHook: ' + status + ' ' + body));
+               // new Error('Incoming WebHook: ' + status + ' ' + body);
+              cb(new Error('Incoming WebHook: ' + status + ' ' + body));
             } else {
-              console.log('status: ', status);
-              return status;
+              cb(null, status);
             }
           });
-        }
+        } 
       }
     }
 
