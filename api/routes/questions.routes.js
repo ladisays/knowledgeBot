@@ -10,11 +10,18 @@ module.exports = function(app, config) {
     //parse data from bot
     var parseQue = function(callback) {
       var data = req.body;
+      var tags = data.tags;
+      tags = tags.replace(/ /g, '').toLowerCase().split(',');
+      _.remove(tags, function(n) {
+        return n.length < 2;
+      });
       var question = {};
       question.body = data.body;
-      question.tags = data.tags.split(' ');
       question.userId = data.id;
+      question.tags = tags;
       callback(null, question);
+      console.log(req.body);
+      console.log(question);
     };
 
     var checkDupQues = function(question, callback) {
@@ -25,6 +32,7 @@ module.exports = function(app, config) {
             if (question.length < 10) {
               return callback(new Error('Invalid Question'));
             }
+            console.log(question);
             var regexp = new RegExp(question.body.substr(0, 10), 'i');
             var match = _.find(ques, function(que) {
               return regexp.test(que.body);

@@ -21,6 +21,7 @@ module.exports = function(app, config) {
       }
     });
   });
+
   app.route('/users/skills').post(function(req, res) {
     var data = req.body;
     root.child('users').orderByChild('username')
