@@ -12,7 +12,8 @@ module.exports = function(tags, cb) {
   root.child('users').on('value', function(snap) {
     var data      = snap.val(),
       skills      = {},
-      expertMatch = {};
+      expertMatch = {},
+      expertArray = [];
       
     for (var i in data) {
       if (data.hasOwnProperty(i)) {
@@ -20,7 +21,8 @@ module.exports = function(tags, cb) {
         var tagsMatchSkill = _.intersection(skillArray, tags);
         if (tagsMatchSkill.length > 0) {
           expertMatch['user'] = data[i];
-          send(expertMatch, function(error, status, body) {
+          expertArray.unshift(data[i]);
+          send(expertArray, function(error, status, body) {
             if (error) {
               cb(error);
             } else if (status !== 200) {
