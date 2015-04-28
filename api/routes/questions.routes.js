@@ -20,8 +20,6 @@ module.exports = function(app, config) {
       question.userId = data.id;
       question.tags = tags;
       callback(null, question);
-      console.log(req.body);
-      console.log(question);
     };
 
     var checkDupQues = function(question, callback) {
@@ -32,7 +30,6 @@ module.exports = function(app, config) {
             if (question.length < 10) {
               return callback(new Error('Invalid Question'));
             }
-            console.log(question);
             var regexp = new RegExp(question.body.substr(0, 10), 'i');
             var match = _.find(ques, function(que) {
               return regexp.test(que.body);
@@ -80,7 +77,6 @@ module.exports = function(app, config) {
         if (data === 200) {
           return res.status(200).send('You have the experts now');
         } else {
-          // return res.status(200).send('You have the experts now');
           return res.status(404).send('No experts with the selected tags');
         }
       });
