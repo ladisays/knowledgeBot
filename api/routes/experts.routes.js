@@ -8,22 +8,19 @@ var Firebase = require('firebase'),
 
 var root = new Firebase(config.development.firebase.rootRefUrl);
 
-module.exports = function(tags, cb) {
+module.exports = function(question, cb) {
   root.child('users').on('value', function(snap) {
-    var data      = snap.val(),
-      expertArray = [],
-      dataObject  = {};
-      
+    var data        = snap.val(),
+      expertObject  = {};
+
     for (var i in data) {
       if (data.hasOwnProperty(i)) {
         var skillArray = (data[i].skills + "").toLowerCase().split(',');
-        var tagsMatchSkill = _.intersection(skillArray, tags);
+        var tagsMatchSkill = _.intersection(skillArray, question.tags);
         if (tagsMatchSkill.length > 0) {
-          console.log('data[i]: ', data[i]);
-          expertArray.push(data[i]);
-          console.log('expertArray: ', expertArray);
-          return;
-          send(expertArray, function(error, status, body) {
+          expertObject.question = question;
+          expertObject.experts = data[i];
+          send([expertObject], function(error, status, body) {
             if (error) {
               cb(error);
             } else if (status !== 200) {

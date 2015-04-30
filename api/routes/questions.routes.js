@@ -71,7 +71,7 @@ module.exports = function(app, config) {
         });
       }
 
-      experts(newQue.tags, function(err, data) {
+      experts(newQue, function(err, data) {
         console.log('data: ', data);
         console.log('Err: ', err);
         if (data === 200) {
