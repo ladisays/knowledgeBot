@@ -20,7 +20,7 @@ module.exports = function(question, cb) {
         var skillArray = (data[i].skills + "").toLowerCase().split(',');
         var tagsMatchSkill = _.intersection(skillArray, question.tags);
         if (tagsMatchSkill.length > 0) {
-          expertObject.question = question.body;
+          expertObject.question = question;
           expertObject.experts.push(data[i]);
           send(expertObject, function(error, status, body) {
             if (error) {
