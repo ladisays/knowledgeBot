@@ -22,18 +22,19 @@ module.exports = function(question, cb) {
         if (tagsMatchSkill.length > 0) {
           expertObject.question = question.body;
           expertObject.experts.push(data[i]);
-          send(expertObject, function(error, status, body) {
-            if (error) {
-              cb(error);
-            } else if (status !== 200) {
-              cb(new Error('Incoming WebHook: ' + status + ' ' + body));
-            } else {
-              cb(null, status);
-            }
-          });
         } 
       }
     }
+
+    send(expertObject, function(error, status, body) {
+        if (error) {
+          cb(error);
+        } else if (status !== 200) {
+          cb(new Error('Incoming WebHook: ' + status + ' ' + body));
+        } else {
+          cb(null, status);
+        }
+      });
   });
 }
 
