@@ -6,8 +6,7 @@ module.exports = function(app, config) {
   var root = new Firebase(config.firebase.rootRefUrl);
   app.route('/users/register').post(function(req, res) {
     var data = req.body;
-    data.skills = true;
-    root.child('users').orderByChild('slack')
+    root.child('users').indexOn('slack')
     .startAt(data.slack).endAt(data.slack)
     .on('value', function(snap) {
       if(snap.val()) {
