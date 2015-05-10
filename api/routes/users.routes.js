@@ -7,7 +7,7 @@ module.exports = function(app, config) {
   app.route('/users/register').post(function(req, res) {
     var data = req.body;
     data.skills = true;
-    root.child('users').orderByChild('username')
+    root.child('users').orderByChild('slack')
     .startAt(data.slack).endAt(data.slack)
     .on('value', function(snap) {
       if(snap.val()) {
