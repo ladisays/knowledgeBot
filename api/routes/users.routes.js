@@ -7,9 +7,11 @@ module.exports = function(app, config) {
   app.route('/users/register').post(function(req, res) {
     var data = req.body;
     // data.skills = true;
+    console.log(data);
     root.child('users').orderByChild('slack')
     .startAt(data.slack).endAt(data.slack)
     .on('value', function(snap) {
+      console.log(snap.val());
       if(snap.val()) {
         res.json({error: 'This user already exists'});
       } else {
