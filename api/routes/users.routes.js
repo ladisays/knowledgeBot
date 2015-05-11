@@ -5,7 +5,8 @@ _ = require('lodash');
 module.exports = function(app, config) {
   var root = new Firebase(config.firebase.rootRefUrl);
   app.route('/users/register').post(function(req, res) {
-    var data = req.body;
+    console.log(res);
+    var data = JSON.parse(req.body);
     // data.skills = true;
     console.log(data);
     root.child('users').orderByChild('slack')
