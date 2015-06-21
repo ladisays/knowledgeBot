@@ -4,32 +4,28 @@ _ = require('lodash');
 
 module.exports = function(app, config) {
   var root = new Firebase(config.firebase.rootRefUrl);
-  app.route('/users/register').post(function(req, res) {
-    // console.log(res);
-    var data = req.body;
-    // data.skills = true;
-    console.log(data);
-    root.child('users').orderByChild('slack')
-    .startAt(data.slack).endAt(data.slack)
-    .on('value', function(snap) {
-      console.log(snap.val());
+  app.route('/users/register').post(function (req, res) {
+    var user = req.body;
+
+    root.child('users').child(user.slack).once('value', function (snap) {
       if(snap.val()) {
-        res.json({error: 'This user already exists'});
-      } else {
-        root.child('users').push(data, function(err) {
-          if(!err) {
-            res.json({response: 'Successfully saved your data'});
-          }
+        return res.json({error: 'User already exists!'});
+      }
+      else {
+        root.child('users').child(user.slack).set(user, function (err) {
+          if (!err) {
+            return res.json({response: 'User has been registered successfully - ' + user});
+          };
         });
       }
     });
   });
 
-  app.route('/users/skills').post(function(req, res) {
+  app.route('/users/skills').post(function (req, res) {
     var data = req.body;
     root.child('users').orderByChild('username')
     .startAt(data.slack).endAt(data.slack)
-    .on('value', function(snap) {
+    .on('value', function (snap) {
       if(snap.val()) {
         console.log(data);
         var user = snap.val();
@@ -38,7 +34,7 @@ module.exports = function(app, config) {
         if(user[id].skills) {
           skills = _.union(user[id].skills, skills);
         }
-        root.child('users').child(id).child('skills').set(skills, function(err) {
+        root.child('users').child(id).child('skills').set(skills, function (err) {
           if(!err) {
             res.json({response: 'Successfully updated you skills'});
           }

@@ -17,7 +17,8 @@ module.exports = function(app, config) {
       });
       var question = {};
       question.body = data.body;
-      question.userId = data.id;
+      question.userId = data.uid;
+      question.username = data.username;
       question.tags = tags;
       callback(null, question);
     };
@@ -55,13 +56,14 @@ module.exports = function(app, config) {
     };
     var getLatestQue = function(status, callback) {
       root.child('questions').limitToLast(1).once('child_added', function(snapshot) {
-        callback(null, snapshot.val());
+        var question = snapshot.val();
+        question['id'] = snapshot.key();
+        callback(null, question);
       });
     };
 
     async.waterfall([
       parseQue,
-      checkDupQues,
       saveQue,
       getLatestQue
     ], function(err, newQue) {

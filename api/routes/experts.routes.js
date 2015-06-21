@@ -1,10 +1,11 @@
 'use strict';
 
-var Firebase = require('firebase'),
-    needle   = require('needle'),
-   _         = require('lodash'),
-   request   = require('request'),
-   config    = require('../../config/config');
+var Firebase        = require('firebase'),
+    needle          = require('needle'),
+   _                = require('lodash'),
+   request          = require('request'),
+   config           = require('../../config/config'),
+   yodabotServer    = process.env.BOT_HOST || 'http://localhost:8080';
 
 var root = new Firebase(config.development.firebase.rootRefUrl);
 
@@ -20,7 +21,7 @@ module.exports = function(question, cb) {
         var skillArray = (data[i].skills + "").toLowerCase().split(',');
         var tagsMatchSkill = _.intersection(skillArray, question.tags);
         if (tagsMatchSkill.length > 0) {
-          expertObject.question = question.body;
+          expertObject.question = question;
           expertObject.experts.push(data[i]);
         } 
       }
@@ -40,7 +41,7 @@ module.exports = function(question, cb) {
 
 function send(expert, cb) {
   console.log('expert: ', expert);
-  var uri = ' https://yodabot.herokuapp.com/experts';
+  var uri = yodabot + '/experts';
 
   request({
     uri: uri,
