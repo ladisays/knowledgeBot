@@ -41,7 +41,7 @@ module.exports = function(question, cb) {
 
 function send(expert, cb) {
   console.log('expert: ', expert);
-  var uri = yodabot + '/experts';
+  var uri = yodabotServer + '/experts';
 
   request({
     uri: uri,
