@@ -21,7 +21,12 @@ module.exports = function(app, config) {
     });
   });
 
+<<<<<<< HEAD
   app.route('/users/:uid/skills/:action').post(function (req, res) {
+=======
+  app.route('/users/:uid/skills/:action')
+  .post(function (req, res) {
+>>>>>>> Update user route to modify skillset and added check for node environment
     var uid = req.params.uid;
     var i, action = req.params.action;
     var updatedSkills = [], skills = req.body.skills;
