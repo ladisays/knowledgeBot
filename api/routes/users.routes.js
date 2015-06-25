@@ -30,7 +30,7 @@ module.exports = function(app, config) {
         console.log(data);
         var user = snap.val();
         var id = (_.keys(user))[0];
-        var skills = data.skills;
+        var skills = data.skills.split(", ");
         if(user[id].skills) {
           skills = _.union(user[id].skills, skills);
         }
