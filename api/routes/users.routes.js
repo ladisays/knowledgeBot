@@ -21,12 +21,26 @@ module.exports = function(app, config) {
     });
   });
 
+  app.route('/users/:uid/skills').get(function (req, res) {
+    var uid = req.params.uid;
+    root.child('users').child(uid).once('value', function (snap) {
+      if (!snap.val()) {
+        return res.json({error: 'User not found'});
+      }
+      var user = snap.val();
+      if (!user.skills) {
+        return res.json({error: 'You have no skills'});
+      }
+      return res.json({response: user.skills});
+    });
+  });
+
   app.route('/users/:uid/skills/:action').post(function (req, res) {
     var uid = req.params.uid;
     var i, action = req.params.action;
     var updatedSkills = [], skills = req.body.skills;
 
-    root.child('users').child(uid).once('value', function(snap) {
+    root.child('users').child(uid).once('value', function (snap) {
       if (!snap.val()) {
         return res.status(404).send('User not found!');
       }
