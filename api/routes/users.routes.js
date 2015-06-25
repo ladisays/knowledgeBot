@@ -21,8 +21,7 @@ module.exports = function(app, config) {
     });
   });
 
-  app.route('/users/:uid/skills/:action')
-  .post(function (req, res) {
+  app.route('/users/:uid/skills/:action').post(function (req, res) {
     var uid = req.params.uid;
     var i, action = req.params.action;
     var updatedSkills = [], skills = req.body.skills;
