@@ -18,7 +18,8 @@ module.exports = function(question, cb) {
   root.child('users').on('value', function(snap) {
     var data        = snap.val(),
       expertObject  = {
-        experts: []
+        experts: [],
+        question: question
       };
 
     for (var i in data) {
@@ -26,7 +27,6 @@ module.exports = function(question, cb) {
         var skillArray = (data[i].skills + "").toLowerCase().split(',');
         var tagsMatchSkill = _.intersection(skillArray, question.tags);
         if (tagsMatchSkill.length > 0) {
-          expertObject.question = question;
           expertObject.experts.push(data[i]);
         } 
       }
