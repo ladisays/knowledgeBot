@@ -65,4 +65,17 @@ module.exports = function(app, config) {
       });
     });
   });
+
+  app.route('/users/skills').get(function (req, res) {
+    root.child('users').once('value', function (snap) {
+      if (!snap.val()) {
+        return res.status(404).send('There are no users!');
+      }
+      var users = snap.val();
+      var skills = _.pluck(users, 'skills');
+      skills = skills.toString().toLowerCase().split(',');
+      skills = _.uniq(skills);
+      res.json({response: skills});
+    });
+  });
 };
