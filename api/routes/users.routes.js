@@ -21,27 +21,35 @@ module.exports = function(app, config) {
     });
   });
 
-  app.route('/users/skills').post(function (req, res) {
-    var data = req.body;
-    root.child('users').orderByChild('username')
-    .startAt(data.slack).endAt(data.slack)
-    .on('value', function (snap) {
-      if(snap.val()) {
-        console.log(data);
-        var user = snap.val();
-        var id = (_.keys(user))[0];
-        var skills = data.skills;
-        if(user[id].skills) {
-          skills = _.union(user[id].skills, skills);
-        }
-        root.child('users').child(id).child('skills').set(skills, function (err) {
-          if(!err) {
-            res.json({response: 'Successfully updated you skills'});
-          }
-        });
-      } else {
-        res.json({error: 'This user does not exists'});
+  app.route('/users/:uid/skills/:action')
+  .post(function (req, res) {
+    var uid = req.params.uid;
+    var i, action = req.params.action;
+    var updatedSkills = [], skills = req.body.skills;
+
+    root.child('users').child(uid).once('value', function(snap) {
+      if (!snap.val()) {
+        return res.status(404).send('User not found!');
       }
+
+      var user = snap.val();
+      if (user.skills) {
+        if (action === 'add') {
+          skills = _.union(user.skills, skills);
+        }
+        if (action === 'remove') {
+          skills = _.difference(user.skills, skills);
+        }
+      }
+
+      root.child('users').child(uid).child('skills').set(skills, function (err) {
+        if (!err) {
+          res.json({response: 'Successfully updated skills', skills: skills});
+        }
+        else {
+          res.json({error: 'Could not update skills'});
+        }
+      });
     });
   });
 };

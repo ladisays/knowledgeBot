@@ -5,7 +5,12 @@ var Firebase        = require('firebase'),
    _                = require('lodash'),
    request          = require('request'),
    config           = require('../../config/config'),
-   yodabotServer    = process.env.BOT_HOST || 'http://localhost:8080';
+   env              = process.env.NODE_ENV || 'development';
+
+var yodabotServer = 'http://localhost:8080';
+if(env === 'production') {
+  yodabotServer = process.env.BOT_HOST;
+}
 
 var root = new Firebase(config.development.firebase.rootRefUrl);
 
@@ -42,6 +47,7 @@ module.exports = function(question, cb) {
 function send(expert, cb) {
   console.log('expert: ', expert);
   var uri = yodabotServer + '/experts';
+  console.log(uri);
 
   request({
     uri: uri,
