@@ -6,4 +6,7 @@ module.exports = function(app, config) {
   users(app, config);
   questions(app, config);
   answers(app, config);
+  app.route('/').get(function (req, res) {
+  	res.send('I am alive');
+  });
 };
